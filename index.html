@@ -1,0 +1,468 @@
+<!--
+ * Copyright (c) 2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ -->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee</title>
+
+    <!-- SWIPER -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- Font Awesome CDN Link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Custom CSS File Link  -->
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="referrer" content="no-referrer" />
+
+    <!-- <link href="https://unpkg.com/json-formatter-js@2.3.4/dist/json-formatter.css" rel="stylesheet" type="text/css" /> -->
+    <link href="app.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        .json-formatter-row .json-formatter-string,
+        .json-formatter-row .json-formatter-stringifiable {
+            white-space: unset !important;
+        }
+
+        .json-formatter-dark.json-formatter-row .json-formatter-row {
+            line-height: 1.5;
+        }
+
+        .json-container {
+            background: #272822;
+            padding: 20px;
+        }
+
+        .json-formatter-string {
+            color: #fd971f !important;
+        }
+
+        .json-formatter-key,
+        .json-formatter-bracket {
+            color: #f9f8f5 !important;
+            letter-spacing: 0.5px;
+        }
+
+        .json-formatter-number {
+            color: #cc6633 !important;
+        }
+
+        .code {
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root">
+        <div class="container">
+
+            <!-- <div class="header-title">
+                <h1>
+                    JavaScript Authentication Sample
+                </h1>
+            </div> -->
+            <div class="content">
+
+                <div id="loading">Loading ...</div>
+                <div id="error" style="display: none;">
+                    <div class="segment-form">
+                        <div class="ui visible negative message">
+                            <div class="header"><b>Authentication Error!</b></div>
+                            <p>Something went wrong during the authentication process.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="missing-config" style="display:none;">
+                    <h2>You need to update the Client ID to proceed.</h2>
+                    <p>Please open the <b>index.html</b> file using an editor and scroll down to the <b>script</b>
+                        tag at the the end of the <b>body</b> tag, find the <code>authConfig</code>, and
+                        update the <code>clientID</code> value with the registered application's client ID.</p>
+                    <p>Visit repo
+                        <a
+                            href="https://github.com/asgardeo/asgardeo-auth-spa-sdk/tree/master/samples/asgardeo-html-js-app">
+                            README
+                        </a> for more details.
+                    </p>
+                </div>
+
+                <div id="logged-in-view" style="display:none;">
+                    <div class="json">
+                        <div id="authentication-response" class="json-container"></div>
+                    </div>
+                    <!-- HEADER -->
+                    <header class="header">
+                        <div id="menu-btn" class="fas fa-bars"></div>
+
+                        <a href="#" class="logo">Heavenly Beans <i class="fas fa-mug-hot"></i></a>
+
+                        <nav class="navbar">
+                            <a href="#home">home</a>
+                            <a href="#about">about</a>
+                            <a href="#menu">menu</a>
+                            <a href="#review">review</a>
+                            <a href="#book">book</a>
+                            <button class="btn primary mt-4" style="border-radius: 40%;" onClick="handleLogout()">Logout</button>
+                        </nav>
+                    </header>
+
+                    <!-- HOME -->
+                    <section class="home" id="home">
+                        <div class="row">
+                            <div class="content">
+                                <h3 style="margin-top: 20vh;">Start your day with a cup of freshly brewed coffee</h3>
+                                <a href="#" class="btn">buy one now</a>
+                            </div>
+
+                            <div class="image">
+                                <!-- <img src="image/home-img-1.png" class="main-home-image" alt=""> -->
+                            </div>
+                        </div>
+
+                        <div class="image-slider">
+                            <!-- <img src="image/home-img-1.png" alt="">
+                            <img src="image/home-img-2.png" alt="">
+                            <img src="image/home-img-3.png" alt=""> -->
+                        </div>
+                    </section>
+
+                    <!-- ABOUT -->
+                    <section class="about" id="about">
+                        <h1 class="heading">about us <span>why choose us</span></h1>
+
+                        <div class="row">
+                            <div class="image">
+                                <img src="image/about-img.png" alt="">
+                            </div>
+
+                            <div class="content">
+                                <h3 class="title">what's makes us special!</h3>
+                                <p>We bridge the gap between coffee bean farmers and retailers, creating a direct connection for fresher, more sustainable coffee.</p>
+                                <a href="#" class="btn">read more</a>
+                                <div class="icons-container">
+                                    <div class="icons">
+                                        <img src="image/about-icon-1.png" alt="">
+                                        <h3>quality coffee</h3>
+                                    </div>
+                                    <div class="icons">
+                                        <img src="image/about-icon-2.png" alt="">
+                                        <h3>our branches</h3>
+                                    </div>
+                                    <div class="icons">
+                                        <img src="image/about-icon-3.png" alt="">
+                                        <h3>free delivery</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- MENU -->
+                    <section class="menu" id="menu">
+                        <h1 class="heading">our menu <span>MAIN COFFEE BEAN TYPES</span></h1>
+
+                        <div class="box-container">
+                            <a href="#" class="box">
+                                <img src="image/menu-1.png" alt="">
+                                <div class="content">
+                                    <h3>Liberica</h3>
+                                    <p>Flavour: Liberica beans are known for their unique fruity and floral notes, often described as having a woody or smoky taste.</p>
+                                    <span>Popularity: Liberica beans are less common and have a niche market compared to Arabica and Robusta.</span>
+                                </div>
+                            </a>
+
+                            <a href="#" class="box">
+                                <img src="image/menu-2.png" alt="">
+                                <div class="content">
+                                    <h3>Arabica</h3>
+                                    <p>Flavour: Arabica beans are prized for their complex flavours, often featuring fruity, floral, and acidic notes with varying degrees of sweetness.</p>
+                                    <span>Popularity: Arabica beans are the most widely consumed and preferred type of coffee globally, prized for their superior taste and aroma.</span>
+                                </div>
+                            </a>
+
+                            <a href="#" class="box">
+                                <img src="image/menu-3.png" alt="">
+                                <div class="content">
+                                    <h3>Robusta</h3>
+                                    <p>Flavour: Robusta beans are known for their strong, bold flavour with earthy and nutty notes, often exhibiting a bitter taste.</p>
+                                    <span>Popularity: Robusta beans are commonly used in espresso blends and instant coffees due to their strong flavour and higher caffeine content.</span>
+                                </div>
+                            </a>
+
+                            <a href="#" class="box">
+                                <img src="image/menu-4.png" alt="">
+                                <div class="content">
+                                    <h3>Excelsa</h3>
+                                    <p>Flavour: Excelsa beans have a unique flavour profile, featuring fruity and tart notes along with a hint of spiciness and a medium body.</p>
+                                    <span>Popularity: Excelsa beans are less common than Arabica and Robusta but are valued for their distinctive flavour contributions in certain coffee blends.</span>
+                                </div>
+                            </a>
+                        </div>
+                    </section>
+
+                    <!-- REVIEW -->
+                    <section class="review" id="review">
+                        <h1 class="heading">reviews <span>Our Partners</span></h1>
+
+                        <div class="swiper review-slider">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide box">
+                                    <i class="fas fa-quote-left"></i>
+                                    <i class="fas fa-quote-right"></i>
+                                    <img src="image/pic-1.png" alt="">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <h3 style="margin-bottom: 10px;">Arabica Beans</h3>
+                                        <p style="margin-bottom: 5px;"><strong>Origin:</strong> Ethiopia, Yirgacheffe region</p>
+                                        <p style="margin-bottom: 5px;"><strong>Flavour Profile:</strong> Complex flavours with fruity, floral, and acidic notes, varying degrees of sweetness</p>
+                                        <p style="margin-bottom: 5px;"><strong>Processing Method:</strong> Natural</p>
+                                        <p style="margin-bottom: 5px;"><strong>Roast Recommendations:</strong> Light to medium</p>
+                                        <p style="margin-bottom: 5px;"><strong>Quantity Available:</strong> 500g, 1kg</p>
+                                        <p style="margin-bottom: 5px;"><strong>Pricing:</strong> $12 per 500g, $22 per 1kg</p>
+                                    </div>
+                                    <div>
+                                        <button style="margin-top: 10px; padding: 5px 10px; background-color: #6C331E; color: white; border: none; border-radius: 5px; cursor: pointer;">Order Now</button>
+                                    </div>                                    
+                                </div>
+
+                                <div class="swiper-slide box">
+                                    <i class="fas fa-quote-left"></i>
+                                    <i class="fas fa-quote-right"></i>
+                                    <img src="image/pic-2.png" alt="">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <h3 style="margin-bottom: 10px;">Liberica Beans</h3>
+                                        <p style="margin-bottom: 5px;"><strong>Origin:</strong> Liberia, West Africa</p>
+                                        <p style="margin-bottom: 5px;"><strong>Flavour Profile:</strong> Unique fruity and floral notes, with a woody or smoky taste</p>
+                                        <p style="margin-bottom: 5px;"><strong>Processing Method:</strong> Washed</p>
+                                        <p style="margin-bottom: 5px;"><strong>Roast Recommendations:</strong> Medium</p>
+                                        <p style="margin-bottom: 5px;"><strong>Quantity Available:</strong> 250g, 500g</p>
+                                        <p style="margin-bottom: 5px;"><strong>Pricing:</strong> $10 per 250g, $18 per 500g</p>
+                                    </div>
+                                    <div>
+                                        <button style="margin-top: 10px; padding: 5px 10px; background-color: #6C331E; color: white; border: none; border-radius: 5px; cursor: pointer;">Order Now</button>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide box">
+                                    <i class="fas fa-quote-left"></i>
+                                    <i class="fas fa-quote-right"></i>
+                                    <img src="image/pic-3.png" alt="">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <h3 style="margin-bottom: 10px;">Robusta Beans</h3>
+                                        <p style="margin-bottom: 5px;"><strong>Origin:</strong> Vietnam, Central Highlands</p>
+                                        <p style="margin-bottom: 5px;"><strong>Flavour Profile:</strong> Strong, bold flavour with earthy and nutty notes, bitter taste</p>
+                                        <p style="margin-bottom: 5px;"><strong>Processing Method:</strong> Washed</p>
+                                        <p style="margin-bottom: 5px;"><strong>Roast Recommendations:</strong> Dark</p>
+                                        <p style="margin-bottom: 5px;"><strong>Quantity Available:</strong> 250g, 1kg</p>
+                                        <p style="margin-bottom: 5px;"><strong>Pricing:</strong> $8 per 250g, $30 per 1kg</p>
+                                    </div>
+                                    <div>
+                                        <button style="margin-top: 10px; padding: 5px 10px; background-color: #6C331E; color: white; border: none; border-radius: 5px; cursor: pointer;">Order Now</button>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="swiper-slide box">
+                                    <i class="fas fa-quote-left"></i>
+                                    <i class="fas fa-quote-right"></i>
+                                    <img src="image/pic-4.png" alt="">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <h3 style="margin-bottom: 10px;">Excelsa Beans</h3>
+                                        <p style="margin-bottom: 5px;"><strong>Origin:</strong> Philippines, Cavite region</p>
+                                        <p style="margin-bottom: 5px;"><strong>Flavour Profile:</strong> Fruity and tart notes with a hint of spiciness, medium body</p>
+                                        <p style="margin-bottom: 5px;"><strong>Processing Method:</strong> Natural</p>
+                                        <p style="margin-bottom: 5px;"><strong>Roast Recommendations:</strong> Medium to dark</p>
+                                        <p style="margin-bottom: 5px;"><strong>Quantity Available:</strong> 500g, 1kg</p>
+                                        <p style="margin-bottom: 5px;"><strong>Pricing:</strong> $11 per 500g, $20 per 1kg</p>
+                                    </div>
+                                    <div>
+                                        <button style="margin-top: 10px; padding: 5px 10px; background-color: #6C331E; color: white; border: none; border-radius: 5px; cursor: pointer;">Order Now</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </section>
+
+                    <!-- BOOK -->
+                    <section class="book" id="book">
+                        <h1 class="heading">CONTACT US <span>We are here for you</span></h1>
+
+                        <form action="">
+                            <input type="text" placeholder="Name" class="box">
+                            <input type="email" placeholder="Email" class="box">
+                            <input type="number" placeholder="Number" class="box">
+                            <textarea name="" placeholder="Message" class="box" id="" cols="30" rows="10"></textarea>
+                            <input type="submit" value="send message" class="btn">
+                        </form>
+                    </section>
+
+                    <!-- FOOTER -->
+                    <section class="footer">
+                        <div class="box-container">
+                            <div class="box">
+                                <h3>our branches</h3>
+                                <a href="#"><i class="fas fa-arrow-right"></i> india</a>
+                                <a href="#"><i class="fas fa-arrow-right"></i> USA</a>
+                                <a href="#"><i class="fas fa-arrow-right"></i> france</a>
+                                <a href="#"><i class="fas fa-arrow-right"></i> africa</a>
+                                <a href="#"><i class="fas fa-arrow-right"></i> japan</a>
+                            </div>
+
+                            <div class="box">
+                                <h3>quick links</h3>
+                                <a href="#home"><i class="fas fa-arrow-right"></i> home</a>
+                                <a href="#about"><i class="fas fa-arrow-right"></i> about</a>
+                                <a href="#menu"><i class="fas fa-arrow-right"></i> menu</a>
+                                <a href="#review"><i class="fas fa-arrow-right"></i> review</a>
+                                <a href="#book"><i class="fas fa-arrow-right"></i> book</a>
+                            </div>
+
+                            <div class="box">
+                                <h3>contact info</h3>
+                                <a href="#"><i class="fas fa-phone"></i> +123-456-7890</a>
+                                <a href="#"><i class="fas fa-phone"></i> +111-222-3333</a>
+                                <a href="#"><i class="fas fa-envelope"></i> heavenlybeans@gmail.com</a>
+                                <a href="#"><i class="fas fa-envelope"></i> Colombo, LK</a>
+                            </div>
+
+                            <div class="box">
+                                <h3>contact info</h3>
+                                <a href="#"><i class="fab fa-facebook-f"></i> facebook</a>
+                                <a href="#"><i class="fab fa-twitter"></i> twitter</a>
+                                <a href="#"><i class="fab fa-instagram"></i> instagram</a>
+                                <a href="#"><i class="fab fa-linkedin"></i> linkedin</a>
+                                <a href="#"><i class="fab fa-twitter"></i> twitter</a>
+                            </div>
+                        </div>
+
+                        <button class="btn primary mt-4" onClick="handleLogout()">Logout</button>
+
+                        <div class="credit">created by <span>IIT Westminster Collaborative Project 2024</span> | all rights reserved</div>
+                    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- SWIPER -->
+                    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+                    <!-- Custom JS File Link  -->
+                    <script src="js/script.js"></script>
+
+                    
+                </div>
+
+                <div id="logged-out-view" style="display:none;">
+                    <div class="home-image">
+                        <img src="image/js-logo.jpg" class="js-logo-image logo" />
+                    </div>
+                    <h3>
+                        Discover the finest coffee beans from around the world. Login now to explore our rich coffee selection and exclusive offers!
+                    </h3>
+                    <h3><b>IIT & Westminster Collaboration</b></h3>
+                    <button class="btn primary" onClick="handleLogin()">Login</button>
+                </div>
+
+                <div id="user-denied-logout-view" style="display:none;" className="ui visible negative message">
+                    <h3 className="mt-4 b">End User denied the logout request</h3>
+                    <p className="my-4">
+                        <a className="link-button pointer" onClick="handleLogin()" role="button">
+                            Try Log in again
+                        </a>
+                        &nbsp;or&nbsp;
+                        <a className="link-button pointer" onClick="handleLogout()" role="button">
+                            Log out from the application.
+                        </a>
+                    </p>
+                </div>
+
+                <div id="error-authenticating-view" style="display:none;" className="ui visible negative message">
+                    <div class="segment-form">
+                        <div class="ui visible negative message">
+                            <div class="header"><b>Authentication Error!</b></div>
+                            <p>Please check application configuration and try login again!.</p>
+                        </div>
+                    </div>
+                    <button class="btn primary" onClick="handleLogin()">Login</button>
+                </div>
+            </div>
+
+        </div>
+        <div style="margin-bottom: 2vh;"></div>
+
+        <!-- <img src="image/footer.png" class="footer-image" /> -->
+    </div>
+
+    <!-- Add Asgardeo OIDC JS -->
+    <script src="https://unpkg.com/@asgardeo/auth-spa@latest/dist/asgardeo-spa.production.min.js"></script>
+    <script src="https://unpkg.com/json-formatter-js@latest/dist/json-formatter.umd.js"></script>
+
+    <!-- Asgardeo SDK Init Config -->
+    <script>
+        const authConfig = {
+            clientID: "kHagg6P9sbQjSUkcbeNr4UsEpuoa",
+            signInRedirectURL: "https://localhost:3000",
+            baseUrl: "https://api.asgardeo.io/t/coffeeapp",
+            scope: ["openid", "profile"]
+        };
+    </script>
+
+    <script type="application/javascript" src="app.js"></script>
+</body>
+
+</html>
