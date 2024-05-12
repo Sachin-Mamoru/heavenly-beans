@@ -39,6 +39,7 @@ var state = {
 
 let hasLogoutFailureError = false;
 let hasAuthRequiredError = false;
+let hasBilling = false;
 
 const urlParams = new URLSearchParams(window.location.search);
 const stateParam = urlParams.get('state');
@@ -138,12 +139,16 @@ function updateView() {
     // var idTokenHeaderViewBox = document.getElementById("id-token-header");
     // var idTokenPayloadViewBox = document.getElementById("id-token-payload");
     var loggedInView = document.getElementById("logged-in-view");
+    var billingInView = document.getElementById("billing-in-view");
     var loggedOutView = document.getElementById("logged-out-view");
     var userDeniedLogoutView = document.getElementById("user-denied-logout-view");
     var errorAuthenticatingView = document.getElementById("error-authenticating-view");
 
     if (state.isAuth) {
 
+        console.log("Is authenicated");
+        //check if billing is true
+        hasBilling = sessionStorage.getItem("billing") === "true";
         // var formattedAuthenticateResponse = new JSONFormatter(state.authenticateResponse, 1, { theme: "dark" });
         // var formattedDecodedIdTokenHeader = new JSONFormatter(state.idToken.decoded[0], 1, { theme: "dark" });
         // var formattedDecodedIdTokenPayload = new JSONFormatter(state.idToken.decoded[1], 1, { theme: "dark" });
@@ -160,22 +165,36 @@ function updateView() {
         // document.getElementById("id-token-1").innerHTML = state.idToken.encoded[1];
         // document.getElementById("id-token-2").innerHTML = state.idToken.encoded[2];
 
-        loggedInView.style.display = "block";
-        loggedOutView.style.display = "none";
-        userDeniedLogoutView.style.display = "none";
-        errorAuthenticatingView.style.display = "none";
+        if (hasBilling) {
+            loggedInView.style.display = "none";
+            billingInView.style.display = "block";
+            loggedOutView.style.display = "none";
+            userDeniedLogoutView.style.display = "none";
+            errorAuthenticatingView.style.display = "none";
+            sessionStorage.removeItem("billing");
+            hasBilling = false;
+        } else {
+            loggedInView.style.display = "block";
+            billingInView.style.display = "none";
+            loggedOutView.style.display = "none";
+            userDeniedLogoutView.style.display = "none";
+            errorAuthenticatingView.style.display = "none";
+        }
     } else if(hasLogoutFailureError) {
         loggedInView.style.display = "none";
+        billingInView.style.display = "none";
         loggedOutView.style.display = "none";
         userDeniedLogoutView.style.display = "block";
         errorAuthenticatingView.style.display = "none";
     } else if(hasAuthRequiredError) {
         loggedInView.style.display = "none";
+        billingInView.style.display = "none";
         loggedOutView.style.display = "none";
         userDeniedLogoutView.style.display = "none";
         errorAuthenticatingView.style.display = "block";
-    } else {
+    }else {
         loggedInView.style.display = "none";
+        billingInView.style.display = "none";
         userDeniedLogoutView.style.display = "none";
         errorAuthenticatingView.style.display = "none";
 
@@ -213,6 +232,33 @@ function setAuthenticatedState(response) {
 function handleLogin() {
     hasLogoutFailureError = false;
     authClient.signIn();
+}
+
+function handleBilling() {
+    //add billing true to session storage
+    sessionStorage.setItem("billing", true);
+    var billingInView = document.getElementById("billing-in-view");
+    console.log("Billing");
+    Object.keys(sessionStorage).forEach(key => {
+        if (key.startsWith('session_data-instance')) {
+            sessionStorage.removeItem(key);
+        }
+    });
+    hasLogoutFailureError = false;
+    authClient.signIn({
+        acr_values:"acr2"
+    }).catch(() => {
+        document.getElementById("error").style.display = "block";
+    }).finally(() => {
+        isLoading = false;
+        hasBilling = true;
+        updateView();
+    });
+}
+
+function handleHome() {
+    //refresh the page
+    location.reload();
 }
 
 /**

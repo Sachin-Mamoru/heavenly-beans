@@ -68,6 +68,12 @@ a:hover {
     vertical-align: middle;
 }
 
+.home-image2 .logo {
+    width: 25vh;
+    margin-top: 5vh;
+    vertical-align: middle;
+}
+
 .home-image .logo-plus {
     display: inline-block;
     font-size: 50px;

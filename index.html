@@ -109,6 +109,58 @@
                     </p>
                 </div>
 
+                <div id="billing-in-view" style="display:none;">
+                    <div class="home-image2">
+                        <img src="image/billing-card.jpeg" class="js-logo-image logo" />
+                    </div>
+                    <form style="width: 360px; height: 500px; margin: 60px auto 0; border: 1px solid #ddd; border-radius: 6px; background-color: #fff; box-shadow: 1px 2px 3px 0 rgba(0,0,0,.10); font-family: 'Roboto', sans-serif; box-sizing: border-box;">
+                        <div style="padding: 20px;">
+                          <h4 style="margin: 0; padding-bottom: 20px;">Credit card detail</h4>
+                          <input type="text" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" placeholder="Card Number">
+                          <div style="display: flex; justify-content: space-between;">
+                            <div style="width: 48%;">
+                              <select name="Month" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                                <option value="january">January</option>
+                                <option value="february">February</option>
+                                <option value="march">March</option>
+                                <option value="april">April</option>
+                                <option value="may">May</option>
+                                <option value="june">June</option>
+                                <option value="july">July</option>
+                                <option value="august">August</option>
+                                <option value="september">September</option>
+                                <option value="october">October</option>
+                                <option value="november">November</option>
+                                <option value="december">December</option>
+                              </select>
+                            </div>
+                            <div style="width: 48%;">
+                              <select name="Year" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <input type="text" style="width: 48%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" placeholder="CVV">
+                            <div style="width: 48%; padding: 10px;">
+                              <p style="margin: 0; font-size: 12px;">3 or 4 digits usually found <br> on the signature strip</p>
+                            </div>
+                          </div>
+                          <button type="submit" style="width: 100%; padding: 10px; margin-top: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; box-sizing: border-box;">Proceed</button>
+                          <button type="submit" style="width: 100%; padding: 10px; margin-top: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; box-sizing: border-box;">Pay With</button>
+                          <button type="submit" onClick="handleHome()" style="width: 100%; padding: 10px; margin-top: 10px; background-color: #f5d9ae; color: #000000; border: none; border-radius: 4px; cursor: pointer; box-sizing: border-box;">Home</button>
+                        </div>
+                      </form>                      
+                </div>
+
                 <div id="logged-in-view" style="display:none;">
                     <div class="json">
                         <div id="authentication-response" class="json-container"></div>
@@ -124,8 +176,8 @@
                             <a href="#about">about</a>
                             <a href="#menu">menu</a>
                             <a href="#review">review</a>
-                            <a href="#book">book</a>
-                            <button class="btn primary mt-4" style="border-radius: 40%;" onClick="handleLogout()">Logout</button>
+                            <button class="btn primary mt-4" style="border-radius: 20%; background-color: #eed5a9; color: #000000;" onClick="handleBilling()">Billing</button>
+                            <button class="btn primary mt-4" style="border-radius: 20%; color: #eed5a9;" onClick="handleLogout()">Logout</button>
                         </nav>
                     </header>
 
