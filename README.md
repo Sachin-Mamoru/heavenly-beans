@@ -1,65 +1,79 @@
-# HTML Javascript Sample Application using Asgardeo Auth SPA SDK
+# Coffee Beans Selling App
+
+This project is a B2B application connecting coffee retailers and farmers, providing a platform for seamless transactions and communications. The app is built using HTML, JavaScript, and Asgardeo Auth SPA SDK for authentication.
 
 ## Getting Started
 
 ### Register an Application
 
-Follow the instructions in the [Try Out the Sample Apps](../../README.md#try-out-the-sample-apps) section to register an application.
-
-Make sure to add `https://localhost:3000` as a Redirect URL and also add it under allowed origins.
+1. Create an Asgardeo account and organization: [Asgardeo Signup](https://asgardeo.io/signup).
+2. Register a Single-Page Application in Asgardeo.
+3. Add `https://localhost:3000` as a Redirect URL and Allowed Origin.
 
 ### Configuring the Sample
 
-1. Update the `authConfig` object in `index.html` with your registered app details.
-
-Note: You will only have to paste in the `client ID` generated for the application you registered.
-
-Read more about the SDK configurations [here](../../README.md#initialize) .
+1. Update the `authConfig` object in `index.html` with your app details.
 
 ```js
 const authConfig = {
-    // ClientID generated for the application
     clientID: "<ADD_CLIENT_ID_HERE>",
-    // After login callback URL - We have to use the app root as this is a SPA
-    // (Add it in application OIDC settings "Callback Url")
-    signInRedirectURL: origin,
-    // Asgardeo URL
-    baseUrl: "<ADD_BASE_URL_HERE>",
+    signInRedirectURL: "https://localhost:3000",
+    baseUrl: "https://api.asgardeo.io/t/coffeeapp",
+    scope: ["openid", "profile"]
+};
+
+The app should open at https://localhost:3000. If you encounter an invalid-certificate error, type thisisunsafe to continue.
+
+### Changing the Development Server Port
+
+1. Update the PORT in the .env file in the app root.
+2. Update the signInRedirectURL & signOutRedirectURL in the authConfig object in index.html.
+3. Update the Authorized Redirect URL and Allowed Origins in the Asgardeo Console.
+4. Configuring ACR-based Adaptive Authentication
+5. Follow the guide to configure ACR-based adaptive authentication in Asgardeo: ACR-based Adaptive Authentication.
+6. Use the provided JavaScript function to set up conditional authentication.
+
+```js
+var supportedAcrValues = ['acr1', 'acr2'];
+
+var onLoginRequest = function (context) {
+    var selectedAcr = selectAcrFrom(context, supportedAcrValues);
+    Log.info('--------------- ACR selected: ' + selectedAcr);
+    context.selectedAcr = selectedAcr;
+    switch (selectedAcr) {
+        case supportedAcrValues[0]:
+            executeStep(1, {
+                onSuccess: function (context) {
+                    var user = context.steps[1].subject;
+                    user.claims["http://wso2.org/claims/acr"] = "acr1";
+                }
+            });
+            break;
+        case supportedAcrValues[1]:
+            executeStep(1);
+            executeStep(2, {
+                onSuccess: function (context) {
+                    var user = context.steps[1].subject;
+                    user.claims["http://wso2.org/claims/acr"] = "acr2";
+                }
+            });
+            break;
+        default:
+            executeStep(1, {
+                onSuccess: function (context) {
+                    var user = context.steps[1].subject;
+                    user.claims["http://wso2.org/claims/acr"] = "acr1";
+                }
+            });
+    }
 };
 ```
 
-### Run the Application
+### Branding
+Customize the login UI using Asgardeo’s Branding section or the Branding AI feature.
 
-Note: If you are deploying and testing out this sample in your own server environment, just adding the static files would be enough.
-The following steps demonstrates the usage of a 3rd party module to serve up the static content.
+### User Management
+Add users through the User Management section in Asgardeo.
 
-### Install Dependencies
-
-The sample is using [http-server](https://www.npmjs.com/package/http-server) package to serve the static files.
-You have to install it through npm.
-
-```bash
-npm install
-```
-
-### Starting the server
-
-```bash
-npm start
-```
-
-The app should open at `https://localhost:3000`. If the browser doesn't open the app and throws an invalid-certificate error, just type `thisisunsafe` to continue.
-
-### Change the Application's Development Server Port
-
-By default, the development server runs on port `3000`. Incase if you wish to change this to something else, follow the steps below.
-
-1. Update the `PORT` in [.env](.env) file in the app root.
-2. Update the `signInRedirectURL` & `signOutRedirectURL` in `authConfig` object in [index.html](./index.html).
-3. Go to the Asgardeo Console and navigate to the protocol tab of your application:
-    - Update the Authorized Redirect URL.
-    - Update the Allowed Origins.
-
-## License
-
-Licenses this source under the Apache License, Version 2.0 ([LICENSE](../../LICENSE)), You may not use this file except in compliance with the License.
+### Insights
+Check the number of logins and registrations in the Insights section of Asgardeo.
