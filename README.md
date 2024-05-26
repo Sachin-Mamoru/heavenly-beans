@@ -21,6 +21,7 @@ const authConfig = {
     baseUrl: "https://api.asgardeo.io/t/coffeeapp",
     scope: ["openid", "profile"]
 };
+```
 
 The app should open at https://localhost:3000. If you encounter an invalid-certificate error, type thisisunsafe to continue.
 
